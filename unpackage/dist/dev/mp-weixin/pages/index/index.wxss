@@ -1,0 +1,107 @@
+
+.home-head {
+	background-color: #fff;
+	height: 300rpx;
+	padding: 0 30rpx;
+}
+.home-head .address {
+	font-size: 70rpx;
+	margin-bottom: 50rpx;
+}
+.home-head .address .tap {
+	display: inline-block;
+	font-size: 20rpx;
+	position: relative;
+	top: -17rpx;
+	left: 20rpx;
+}
+.home-head .search {
+	width: 88%;
+	background-color: #f2f1f6;
+	border-radius: 100rpx;
+	padding: 20rpx 40rpx;
+}
+.home-head .search icon {
+	float: left;
+	position: relative;
+	top: 10rpx;
+	margin-right: 20rpx;
+}
+.home-head .search input {
+	font-size: 30rpx;
+}
+.bg-grey {
+	background-color: #F2F1F6;
+}
+
+/*中间按钮*/
+.hemo-middle {
+	padding: 30rpx 30rpx;
+	height: 50rpx;
+}
+.hemo-middle .tab {
+	float: left;
+	font-size: 30rpx;
+	margin-right: 20rpx;
+	padding: 10rpx 20rpx;
+	border-radius: 30rpx;
+	color: #999;
+}
+.hemo-middle .selected {
+	background-color: #cee4f9;
+	color: #1f8bd9;
+}
+
+/*列表*/
+.home-list {
+	padding-bottom: 10rpx;
+}
+.home-list .list-block {
+	position: relative;
+	padding: 15rpx 30rpx 0 30rpx;
+	margin: 0 20rpx 20rpx 20rpx;
+	height: 180rpx;
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #ddd;
+	border-radius: 15rpx;
+}
+.home-list .list-block:last-child {
+	border: none;
+}
+.home-list .list-block .bus-plate {
+	float: left;
+	width: 450rpx;
+	font-size: 30rpx;
+}
+.home-list .list-block .bus-plate view {
+	margin-bottom: 15rpx;
+}
+.home-list .list-block .bus-plate .bus-number {
+	font-size: 40rpx;
+}
+.home-list .list-block .range {
+	position: relative;
+	float: right;
+	font-size: 30rpx;
+	color: #1f8bd9;
+	text-align: right;
+}
+.home-list .list-block .wait {
+	font-size: 50rpx;
+	line-height: 150rpx;
+}
+.home-list .list-block .time image {
+	width: 20rpx;
+	height: 20rpx;
+	position: absolute;
+	left: 140rpx;
+	top: 10rpx;
+}
+.home-list .list-block .time .number {
+	font-size: 80rpx;
+	text-align: right;
+}
+.home-list .list-block .time .number text {
+	font-size: 30rpx;
+}
+
