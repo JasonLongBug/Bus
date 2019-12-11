@@ -183,7 +183,7 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           that.$refs["sortPickerList"].initPage(addrList);
-          console.log(addrList);
+          // console.log(addrList);
         },
         fail: function fail() {},
         complete: function complete() {} });

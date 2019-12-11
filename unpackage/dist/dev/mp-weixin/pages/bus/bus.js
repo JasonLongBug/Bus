@@ -221,6 +221,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -287,6 +299,7 @@ var _default =
             }
           }
           that.buseTimes = arriveList.reverse();
+          console.log(that.buseTimes);
 
 
           // 设置标题

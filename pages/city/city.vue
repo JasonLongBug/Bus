@@ -61,7 +61,7 @@
 						}
 
 						that.$refs["sortPickerList"].initPage(addrList);
-						console.log(addrList);
+						// console.log(addrList);
 					},
 					fail: () => {},
 					complete: () => {}

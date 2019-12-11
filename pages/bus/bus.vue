@@ -6,15 +6,20 @@
 		</view>
 		<view class='next-time'>
 			<scroll-view scroll-x="true" class="time-block scroll-view_H">
-				<block v-for="(item,index) in buseTimes" :key="index">
-					<view class='list' v-if="item.travels.length>0">
-						<view class='time'>
-							<image src="../../static/image/icon-wifi.png"></image>
-							<view class='number'>{{getMinute(item.travels[0].travelTime)}}</view>
-							<view class='minute'>分</view>
+				<block v-if="roads.length>0">
+					<block v-for="(item,index) in buseTimes" :key="index">
+						<view class='list' v-if="item.travels.length>0">
+							<view class='time'>
+								<image src="../../static/image/icon-wifi.png"></image>
+								<view class='number'>{{getMinute(item.travels[0].travelTime)}}</view>
+								<view class='minute'>分</view>
+							</view>
+							<view class='distance'>{{item.travels[0].order-item.order}}站 / 1.2km</view>
 						</view>
-						<view class='distance'>{{item.travels[0].order-item.order}}站 / 1.2km</view>
-					</view>
+					</block>
+				</block>
+				<block v-else>
+					<view class='tip-no'>本线路暂未开通实时公交</view>
 				</block>
 			</scroll-view>
 			<view class='next-bottom'>
@@ -26,14 +31,21 @@
 			<!-- 第一个站牌前的一段 -->
 			<view class='plate-list-first'>
 			</view>
-			<block v-for="(item,index) in roads" :key="index">
-				<view class='plate-list'>
+			<block v-if="roads.length>0">
+				<view class='plate-list' v-for="(item,index) in roads" :key="index">
 					<view v-for="(plate,j) in item" :key="j" class="color" v-bind:class="'color-'+plate.TVL" v-bind:style="{width:plate.TPC*100+'%'}"></view>
 					<block v-for="(bus, i) in buses" :key="i">
 						<!-- {{bus.order}} -->
 						<image v-if="bus.order==index+1" class='car' :class="bus.state==1?'car-arrive':''" src='../../static/image/icon-car.png'></image>
 					</block>
 				</view>
+			</block>
+			<block v-else>
+				<block v-for="(item,index) in stations" :key="index">
+					<view class='plate-list' v-if="index<stations.length-1">
+						<view class="color" style="width:100%"></view>
+					</view>
+				</block>
 			</block>
 			<!-- 最后一个站牌后的一段 -->
 			<view class='plate-list-last'>
@@ -138,7 +150,7 @@
 						// 实时公交车
 						var busList = rst.jsonr.data.buses;
 						that.buses = busList;
-						
+
 						// 查询即将到达本站的公交
 						var arriveList = [];
 						for (var i = 0; i < busList.length; i++) {
@@ -147,6 +159,7 @@
 							}
 						}
 						that.buseTimes = arriveList.reverse();
+						console.log(that.buseTimes);
 
 
 						// 设置标题
@@ -188,6 +201,11 @@
 		background-color: #F2F1F6;
 	}
 
+	.tip-no{
+		color: #808080;
+		padding: 0 0 45rpx 0;
+	}
+	
 	.container {
 		padding-bottom: 200rpx;
 	}
@@ -325,7 +343,7 @@
 		width: 60rpx;
 		height: 20rpx;
 		display: inline-block;
-		background-color: #f08d26;
+		background-color: #1296db;
 	}
 
 	.plate-list-first {
@@ -368,6 +386,10 @@
 	}
 
 	/*站牌名称列表*/
+	.plate-name-block {
+		position: relative;
+		top: -39rpx;
+	}
 
 	.plate-name {
 		display: inline-block;
@@ -375,7 +397,7 @@
 		text-align: center;
 		vertical-align: top;
 		position: relative;
-		top: -42rpx;
+		/* top: -37rpx; */
 	}
 
 	.plate-name image {

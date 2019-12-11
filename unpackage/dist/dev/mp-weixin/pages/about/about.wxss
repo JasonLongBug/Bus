@@ -1,0 +1,26 @@
+
+.content{
+  padding: 0 30rpx;
+}
+.head {
+  margin: 150rpx 0 100rpx 0;
+  text-align: center;
+  line-height: 1.5em;
+}
+.head image {
+  width: 150rpx;
+  height: 150rpx;
+  margin-bottom: 10rpx;
+}
+.head .number{
+  font-size: 30rpx;
+  color: #666666;
+}
+.explain{
+  font-size: 30rpx;
+  color: #666666;
+}
+.btn{
+  margin-bottom: 30rpx;
+}
+

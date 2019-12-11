@@ -131,7 +131,30 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -181,9 +204,23 @@ var _default =
 {
   data: function data() {
     return {
-      tabItem: [], // 标签列表
+      tabItem: [// 标签列表
+      {
+        _id: 1,
+        TypeName: "上班" },
+
+      {
+        _id: 2,
+        TypeName: "下班" }],
+
+
+      showid: 1, // 选中标签
       cityName: "", // 城市名称
-      busList: [{
+      showTip: false, // 是否显示提示
+      gpsRealtimeCity: [], // 定位城市
+      showLogin: true, // 显示登录
+      headUrl: "../../static/image/icon-bus.png", // 头像
+      busList: [{ // 收藏的线路
         lineID: "035180997576", // 线路ID
         lineNo: "804", // 线路
         endSn: "火车站", // 终点
@@ -203,66 +240,98 @@ var _default =
         order: 3, // 还有几站到
         distance: 1.2, // 距离
         state: 0 // -1无车，0正常
-      }, {
-        lineID: "035180997576", // 线路ID
-        lineNo: "804", // 线路
-        endSn: "火车站", // 终点
-        targetOrder: 1, // 候车站ID
-        stationName: "招呼站", // 候车站
-        travelTime: 7, // 到达时间（分）
-        order: 3, // 还有几站到
-        distance: 1.2, // 距离
-        state: 0 // -1无车，0正常
-      }, {
-        lineID: "035180997576", // 线路ID
-        lineNo: "804", // 线路
-        endSn: "火车站", // 终点
-        targetOrder: 1, // 候车站ID
-        stationName: "招呼站", // 候车站
-        travelTime: 7, // 到达时间（分）
-        order: 3, // 还有几站到
-        distance: 1.2, // 距离
-        state: 0 // -1无车，0正常
-      }, {
-        lineID: "035180997576", // 线路ID
-        lineNo: "804", // 线路
-        endSn: "火车站", // 终点
-        targetOrder: 1, // 候车站ID
-        stationName: "招呼站", // 候车站
-        travelTime: 7, // 到达时间（分）
-        order: 3, // 还有几站到
-        distance: 1.2, // 距离
-        state: 0 // -1无车，0正常
-      }, {
-        lineID: "035180997576", // 线路ID
-        lineNo: "804", // 线路
-        endSn: "火车站", // 终点
-        targetOrder: 1, // 候车站ID
-        stationName: "招呼站", // 候车站
-        travelTime: 7, // 到达时间（分）
-        order: 3, // 还有几站到
-        distance: 1.2, // 距离
-        state: 0 // -1无车，0正常
-      }, {
-        lineID: "035180997576", // 线路ID
-        lineNo: "804", // 线路
-        endSn: "火车站", // 终点
-        targetOrder: 1, // 候车站ID
-        stationName: "招呼站", // 候车站
-        travelTime: 7, // 到达时间（分）
-        order: 3, // 还有几站到
-        distance: 1.2, // 距离
-        state: 0 // -1无车，0正常
-      }] // 收藏的线路
-    };
-  },
-  onLoad: function onLoad() {
+      }] };
 
   },
+  onLoad: function onLoad() {},
   onShow: function onShow() {
     this.cityName = this.$city.name;
+    if (this.$wxAvatarUrl != "") {
+      this.headUrl = this.$wxAvatarUrl;
+      this.showLogin = false;
+    }
+    // 定位
+    this.GetNowLocation();
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    // 获取定位
+    GetNowLocation: function GetNowLocation() {var _this = this;
+      var that = this;
+      uni.getLocation({
+        type: 'wgs84',
+        success: function success(res) {
+          // 根据定位查询所在城市
+          uni.request({
+            url: _this.$CityServerUrl,
+            method: 'GET',
+            data: {
+              type: "gpsRealtimeCity",
+              lat: res.latitude,
+              lng: res.longitude,
+              gpstype: "wgs",
+              s: that.$s,
+              v: that.$v,
+              src: that.$src,
+              userId: that.$userId },
+
+            success: function success(res) {
+              that.gpsRealtimeCity = res.data.data.gpsRealtimeCity;
+
+              // 如果第一次进入，没有城市ID，则按当前定位显示，否则显示提示
+              if (that.$city.id == "") {
+                _this.$city.id = _this.gpsRealtimeCity.cityId;
+                _this.cityName = _this.$city.name = _this.gpsRealtimeCity.cityName;
+              } else {
+                if (that.gpsRealtimeCity.cityId != that.$city.id) {
+                  that.showTip = true;
+                }
+              }
+            },
+            fail: function fail() {},
+            complete: function complete() {} });
+
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    },
+    // 关闭提示
+    btnTipClose_Click: function btnTipClose_Click() {
+      this.showTip = false;
+    },
+    // 点击标签
+    btnTab_Click: function btnTab_Click() {
+
+    },
+    // 点击城市
+    btnTipCity_Click: function btnTipCity_Click() {
+      this.$city.id = this.gpsRealtimeCity.cityId;
+      this.cityName = this.$city.name = this.gpsRealtimeCity.cityName;
+      this.showTip = false;
+    },
+    // 点击搜索
+    btnSearch_Click: function btnSearch_Click() {
+      uni.redirectTo({
+        url: '../search/search' });
+
+    },
+    // 点击微信登录
+    btnLogin_Click: function btnLogin_Click(res) {
+      console.log(res);
+      var userInfo = res.detail.userInfo;
+      uni.setStorage({
+        key: "wxAvatarUrl",
+        data: userInfo.avatarUrl });
+
+
+      this.headUrl = this.$wxAvatarUrl = userInfo.avatarUrl;
+
+      this.showLogin = false;
+      uni.showTabBar({
+        animation: true });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 21 */
