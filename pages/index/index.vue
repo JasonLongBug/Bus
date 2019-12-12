@@ -68,6 +68,10 @@
 	</view>
 </template>
 <script>
+	// #ifdef MP-WEIXIN
+	const db = wx.cloud.database();
+	// #endif
+
 	export default {
 		data() {
 			return {
@@ -119,6 +123,15 @@
 			}
 			// 定位
 			this.GetNowLocation();
+
+			db.collection('tbl_CollectionType').where({
+				_openid: "0"
+			}).get({
+				success: function(res) {
+					// res.data 是包含以上定义的两条记录的数组
+					console.log(res.data)
+				}
+			})
 		},
 		methods: {
 			// 获取定位

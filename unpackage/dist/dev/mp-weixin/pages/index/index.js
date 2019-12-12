@@ -200,7 +200,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var _default =
+
+
+var db = wx.cloud.database();var _default =
+
+
 {
   data: function data() {
     return {
@@ -252,6 +256,15 @@ var _default =
     }
     // 定位
     this.GetNowLocation();
+
+    db.collection('tbl_CollectionType').where({
+      _openid: "0" }).
+    get({
+      success: function success(res) {
+        // res.data 是包含以上定义的两条记录的数组
+        console.log(res.data);
+      } });
+
   },
   methods: {
     // 获取定位
@@ -303,7 +316,7 @@ var _default =
     btnTab_Click: function btnTab_Click() {
 
     },
-    // 点击城市
+    // 点击提示-城市
     btnTipCity_Click: function btnTipCity_Click() {
       this.$city.id = this.gpsRealtimeCity.cityId;
       this.cityName = this.$city.name = this.gpsRealtimeCity.cityName;
@@ -311,7 +324,7 @@ var _default =
     },
     // 点击搜索
     btnSearch_Click: function btnSearch_Click() {
-      uni.redirectTo({
+      uni.navigateTo({
         url: '../search/search' });
 
     },
