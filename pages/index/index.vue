@@ -170,7 +170,7 @@
 			btnTab_Click: function() {
 
 			},
-			// 点击城市
+			// 点击提示-城市
 			btnTipCity_Click: function() {
 				this.$city.id = this.gpsRealtimeCity.cityId;
 				this.cityName = this.$city.name = this.gpsRealtimeCity.cityName;
@@ -178,7 +178,7 @@
 			},
 			// 点击搜索
 			btnSearch_Click: function() {
-				uni.redirectTo({
+				uni.navigateTo({
 					url: '../search/search'
 				});
 			},
